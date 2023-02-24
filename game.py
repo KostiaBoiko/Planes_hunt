@@ -44,6 +44,7 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
     def gameplay(self):
         if self.timer > 0:
             self.timer -= 1
