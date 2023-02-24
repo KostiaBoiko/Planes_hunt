@@ -1,5 +1,7 @@
 import pygame
 import settings
+import sys
+import enemy
 from random import randint
 
 
