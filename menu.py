@@ -6,7 +6,7 @@ class Menu:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption('Z-Plane Hunt')
-        self.menuscreen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.menuscreen = pygame.display.set_mode(settings.RESOLUTION, flags=pygame.SCALED)
 
         self.start_button = pygame.transform.scale(pygame.image.load('assets/menu/button_StartGame.png').convert_alpha(),
                                               [256, 83])
@@ -34,8 +34,7 @@ class Menu:
                 game.run()
 
             elif self.settings_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-                self.setting_123(game)
-                game.settings_12345 = 1
+                pass
 
             elif self.exit_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
                 pygame.quit()

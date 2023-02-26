@@ -16,6 +16,7 @@ class Game:
         self.background = pygame.image.load('assets/game/game_back.png')
         self.score_bar = pygame.image.load('assets/game/score_bar.png')
         self.cursor = pygame.image.load('assets/game/scope.png')
+        #pygame.font.init()
         self.font = pygame.font.Font('assets/fonts/LuckiestGuy-Regular.ttf', 35)
 
         pygame.mouse.set_visible(0)
@@ -25,7 +26,6 @@ class Game:
 
         self.score_bar_text = self.font.render(f"Score: {self.score}", False, "White")
 
-        self.settings_12345 = 0
 
     def refresh(self):
         pygame.display.flip()
