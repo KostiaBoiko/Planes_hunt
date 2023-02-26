@@ -1,27 +1,55 @@
-from pygame import *
-
-MenuFont = font.SysFont('arial', 50)
+import pygame
+from settings import *
+from game import *
 
 class Menu:
     def __init__(self):
-        self._option_surfaces = [] # список поверхонь з текстом
-        self._callbacks = [] # список з функціями
-        self._current_option_index = 0 # поточно вибрана функція
+        pygame.init()
+        pygame.display.set_caption('Z-Plane Hunt')
+        self.menuscreen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-    def append_option(self, option, callback):
-        self._option_surfaces.append(MenuFont.render(option, True, (255, 255, 255)))
-        self._callbacks.append(callback)
+        self.start_button = pygame.transform.scale(pygame.image.load('assets/menu/button_StartGame.png').convert_alpha(),
+                                              [256, 83])
+        self.start_button_rect = self.start_button.get_rect(topleft=(232, 60))
+        self.settings_button = pygame.transform.scale(pygame.image.load('assets/menu/button_Settings.png').convert_alpha(),
+                                                 [204, 57])
+        self. settings_button_rect = self.settings_button.get_rect(topleft=(258, 200))
+        self.exit_button = pygame.transform.scale(pygame.image.load('assets/menu/button_Exit.png').convert_alpha(),
+                                             [204, 57])
+        self.exit_button_rect = self.exit_button.get_rect(topleft=(258, 300))
 
-    def switch(self, direction):
-        self._current_option_index = max(0, min(self._current_option_index + direction, len(self._option_surfaces) - 1))
+        self.bg = pygame.transform.scale(pygame.image.load('assets/menu/background.png').convert_alpha(), [720, 480])
 
-    def select(self):
-        self._callbacks[self._current_option_index]()
+    def start_menu(self):
+        menu_running = True
+        while menu_running:
+            self.menuscreen.blit(self.bg, (0, 0))
+            self.menuscreen.blit(self.start_button, self.start_button_rect)
+            self.menuscreen.blit(self.settings_button, self.settings_button_rect)
+            self.menuscreen.blit(self.exit_button, self.exit_button_rect)
 
-    def draw(self, surf, x, y, option_y_padding):
-        for i, option in enumerate(self._option_surfaces):
-            option_rect = option.get_rect()
-            option_rect.topleft = (x, y + i * option_y_padding)
-            if i == self._current_option_index:
-                draw.rect(surf, (0, 100, 0), option_rect)
-            surf.blit(option, option_rect)
+            mouse = pygame.mouse.get_pos()
+            if self.start_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                game = Game()
+                game.run()
+
+            elif self.settings_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                self.setting_123(game)
+                game.settings_12345 = 1
+
+            elif self.exit_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                pygame.quit()
+                sys.exit()
+
+            for event in pygame.event.get():  # получаємо список всіх можливих подій
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+
+            pygame.display.update()
+
+
+
+
+
+
+

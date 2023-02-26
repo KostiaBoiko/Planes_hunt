@@ -7,10 +7,9 @@ from random import randint
 
 class Game:
     def __init__(self):
-        pygame.init()
+        #pygame.init()
         self.screen = pygame.display.set_mode(settings.RESOLUTION, flags=pygame.SCALED)
         self.clock = pygame.time.Clock()
-        pygame.display.set_caption('Z-Plane Hunt')
         self.mouse = 0, 0
         self.timer = 60
 
@@ -25,6 +24,8 @@ class Game:
         self.score = 0
 
         self.score_bar_text = self.font.render(f"Score: {self.score}", False, "White")
+
+        self.settings_12345 = 0
 
     def refresh(self):
         pygame.display.flip()
