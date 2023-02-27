@@ -54,6 +54,7 @@ class Enemy:
             for texture in explosion_texture:
                 game.screen.blit(pygame.transform.scale_by(texture, self.size_multiplier),
                                                           (game.mouse[0]-13, game.mouse[1]-13))
+            game.explosion_sound.play()
             enemies.remove(self)
             game.score += 1
 

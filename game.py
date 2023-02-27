@@ -27,6 +27,12 @@ class Game:
 
         self.score_bar_text = self.font.render(f"Score: {self.score}", False, "White")
 
+        pygame.mixer.init()
+        self.explosion_sound = pygame.mixer.Sound("assets/sounds/vzryv-granaty-rfv.mp3")
+        self.explosion_sound.set_volume(0.05)
+        self.lose_sound = pygame.mixer.Sound("assets/sounds/fail.mp3")
+        self.lose_sound.set_volume(0.1)
+
 
     def refresh(self):
         pygame.display.flip()
@@ -47,12 +53,12 @@ class Game:
                 pygame.quit()
                 sys.exit()
 
-    def gameplay(self):
+    def gameplay(self, ):
         if self.timer > 0:
             self.timer -= 1
         else:
             enemy.Enemy(self)
-            self.timer = randint(30, 50)
+            self.timer = randint(60, 90)
 
 
         # updating model position
@@ -65,10 +71,12 @@ class Game:
 
     def check_score(self, menu):
         if self.score < 0:
+            self.lose_sound.play()
             menu.start_menu(self)
             self.game_running = False
             enemy.enemies.clear()
             self.score = 0
+
 
     def run(self, menu):
         self.game_running = True

@@ -27,6 +27,10 @@ class Menu:
         self.menuscreen.blit(self.settings_button, self.settings_button_rect)
         self.menuscreen.blit(self.exit_button, self.exit_button_rect)
 
+    def settings(self):
+
+        pass
+
 
     def start_menu(self, game):
         pygame.mouse.set_visible(1)
