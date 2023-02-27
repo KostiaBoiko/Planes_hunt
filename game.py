@@ -29,9 +29,11 @@ class Game:
 
         pygame.mixer.init()
         self.explosion_sound = pygame.mixer.Sound("assets/sounds/vzryv-granaty-rfv.mp3")
-        self.explosion_sound.set_volume(0.05)
+        self.explosion_sound.set_volume(0.2)
         self.lose_sound = pygame.mixer.Sound("assets/sounds/fail.mp3")
-        self.lose_sound.set_volume(0.1)
+        self.lose_sound.set_volume(0.2)
+        self.frog_sound = pygame.mixer.Sound("assets/sounds/frog-sound.mp3")
+        self.frog_sound.set_volume(0.05)
 
 
     def refresh(self):
@@ -72,6 +74,7 @@ class Game:
     def check_score(self, menu):
         if self.score < 0:
             self.lose_sound.play()
+            self.frog_sound.play()
             menu.start_menu(self)
             self.game_running = False
             enemy.enemies.clear()
