@@ -3,11 +3,13 @@ import settings
 import sys
 import enemy
 from random import randint
-
+import menu
+import main
 
 class Game:
     def __init__(self):
         #pygame.init()
+        self.game_running = None
         self.screen = pygame.display.set_mode(settings.RESOLUTION, flags=pygame.SCALED)
         self.clock = pygame.time.Clock()
         self.mouse = 0, 0
@@ -16,10 +18,9 @@ class Game:
         self.background = pygame.image.load('assets/game/game_back.png')
         self.score_bar = pygame.image.load('assets/game/score_bar.png')
         self.cursor = pygame.image.load('assets/game/scope.png')
-        #pygame.font.init()
+        pygame.font.init()
         self.font = pygame.font.Font('assets/fonts/LuckiestGuy-Regular.ttf', 35)
 
-        pygame.mouse.set_visible(0)
         self.animation_timer = 60
         self.is_mouse_pressed = False
         self.score = 0
@@ -53,6 +54,7 @@ class Game:
             enemy.Enemy(self)
             self.timer = randint(30, 50)
 
+
         # updating model position
         for target in enemy.enemies:
             target.update(self)
@@ -61,9 +63,18 @@ class Game:
         for target in enemy.enemies:
             target.draw(self)
 
-    def run(self):
-        while True:
+    def check_score(self, menu):
+        if self.score < 0:
+            menu.start_menu(self)
+            self.game_running = False
+            enemy.enemies.clear()
+            self.score = 0
+
+    def run(self, menu):
+        self.game_running = True
+        while self.game_running:
             self.check_events()
+            self.check_score(menu)
             self.draw()
             self.gameplay()
             self.refresh()

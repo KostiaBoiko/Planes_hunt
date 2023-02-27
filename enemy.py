@@ -44,6 +44,7 @@ class Enemy:
             enemies.remove(self)
             game.score -= 1
 
+
     def change_position(self):
         self.x += self.speed
         self.enemy_rect.x = self.x
