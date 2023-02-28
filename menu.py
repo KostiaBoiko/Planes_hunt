@@ -8,6 +8,8 @@ class Menu:
         pygame.display.set_caption('Z-Plane Hunt')
         self.menuscreen = pygame.display.set_mode(settings.RESOLUTION, flags=pygame.SCALED)
         self.bg = pygame.transform.scale(pygame.image.load('assets/menu/background.png').convert_alpha(), [720, 480])
+        self.click = pygame.mixer.Sound('assets/sounds/click.mp3')
+        self.click.set_volume(0.1)
 
         # -------------------------------------------menu buttons----------------------------------------
         self.start_button = pygame.transform.scale(pygame.image.load('assets/menu/button_StartGame.png').convert_alpha(),
@@ -38,6 +40,7 @@ class Menu:
         self.back_button_rect = self.back_button.get_rect(topleft=(500, 360))
 
         self.bg_music = pygame.mixer.Sound('assets/sounds/undertale_050. Metal Crusher.mp3')
+        self.bg_music.set_volume(0.3)
         self.bg_music.play()
 
 
@@ -45,13 +48,16 @@ class Menu:
         self.bg_music.stop()
         if game.game_mode == -1:
             self.bg_music = pygame.mixer.Sound('assets/sounds/Hatsune Miku - Ievan Polkka (mp3store.cc).mp3')
+            self.bg_music.set_volume(0.3)
             self.bg_music.play()
         elif game.game_mode == 1:
             self.bg_music = pygame.mixer.Sound(
                 'assets/sounds/Daniel_Tidwell_-_At_Dooms_Gate_DOOM_E1M1_(musmore.com).mp3')
+            self.bg_music.set_volume(0.3)
             self.bg_music.play()
         elif game.game_mode == 0:
             self.bg_music = pygame.mixer.Sound('assets/sounds/undertale_050. Metal Crusher.mp3')
+            self.bg_music.set_volume(0.3)
             self.bg_music.play()
 
 
@@ -75,23 +81,28 @@ class Menu:
         while settings_running:
             mouse = pygame.mouse.get_pos()
             if self.easymode_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                self.click.play()
                 game.game_mode = -1
 
 
             elif self.normalmode_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                self.click.play()
                 game.game_mode = 0
 
 
             elif self.hardmode_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                self.click.play()
                 game.game_mode = 1
 
 
             elif self.back_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                self.click.play()
                 self.start_menu(game)
                 settings_running = False
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.click.play()
                     pygame.quit()
 
             pygame.display.update()
@@ -103,22 +114,26 @@ class Menu:
         while menu_running:
             mouse = pygame.mouse.get_pos()
             if self.start_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                self.click.play()
                 self.play_song(game)
                 pygame.mouse.set_visible(0)
                 menu_running = False
                 game.run(self)
 
             elif self.settings_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                self.click.play()
                 menu_running = False
                 self.settings(game)
 
 
             elif self.exit_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                self.click.play()
                 pygame.quit()
                 sys.exit()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.click.play()
                     pygame.quit()
 
             pygame.display.update()

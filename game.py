@@ -38,12 +38,14 @@ class Game:
         self.frog_sound.set_volume(0.03)
 
 
-    def refresh(self):
+    def refresh(self, menu):
         pygame.display.flip()
         self.clock.tick(settings.FPS)
         self.mouse = pygame.mouse.get_pos()
         self.score_bar_text = self.font.render(f"Score: {self.score}", True, "White")
-
+        if self.menu_button_rect.collidepoint(self.mouse) and pygame.mouse.get_pressed()[0]:
+            menu.click.play()
+            self.run_menu(menu)
 
     def draw(self):
         self.screen.blit(self.background, (0, 0))
@@ -65,11 +67,11 @@ class Game:
         else:
             enemy.Enemy(self)
             if self.game_mode == -1:
-                self.timer = randint(80, 100)
+                self.timer = randint(70, 100)
             elif self.game_mode == 1:
-                self.timer = randint(20, 30)
+                self.timer = randint(10, 20)
             else:
-                self.timer = randint(50, 70)
+                self.timer = randint(30, 60)
 
 
         # updating model position
@@ -82,13 +84,16 @@ class Game:
 
     def check_score(self, menu):
         if self.score < 0:
-            self.score = 0
-            enemy.enemies.clear()
-            self.game_running = False
-            menu.bg_music.stop()
             self.lose_sound.play()
             self.frog_sound.play()
-            menu.start_menu(self)
+            self.run_menu(menu)
+
+    def run_menu(self, menu):
+        menu.bg_music.stop()
+        self.score = 0
+        enemy.enemies.clear()
+        self.game_running = False
+        menu.start_menu(self)
 
 
     def run(self, menu):
@@ -98,4 +103,4 @@ class Game:
             self.check_score(menu)
             self.draw()
             self.gameplay()
-            self.refresh()
+            self.refresh(menu)
