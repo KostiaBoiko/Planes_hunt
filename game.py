@@ -6,7 +6,7 @@ from random import randint
 
 
 class Game:
-    #Ініціалізація гри
+    # Ініціалізація гри
     def __init__(self):
         self.game_running = None
         # Ініціалізація дісплею
