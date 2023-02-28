@@ -6,7 +6,6 @@ from random import randint
 
 class Game:
     def __init__(self):
-        #pygame.init()
         self.game_running = None
         self.screen = pygame.display.set_mode(settings.RESOLUTION, flags=pygame.SCALED)
         self.clock = pygame.time.Clock()
@@ -22,6 +21,7 @@ class Game:
         self.animation_timer = 60
         self.is_mouse_pressed = False
         self.score = 0
+        self.max_score = 0
         self.game_mode = 0
 
         self.score_bar_text = self.font.render(f"Score: {self.score}", False, "White")
@@ -31,11 +31,11 @@ class Game:
 
         pygame.mixer.init()
         self.explosion_sound = pygame.mixer.Sound("assets/sounds/explosion.mp3")
-        self.explosion_sound.set_volume(0.2)
+        self.explosion_sound.set_volume(0.15)
         self.lose_sound = pygame.mixer.Sound("assets/sounds/fail.mp3")
         self.lose_sound.set_volume(0.2)
         self.frog_sound = pygame.mixer.Sound("assets/sounds/frog-sound.mp3")
-        self.frog_sound.set_volume(0.03)
+        self.frog_sound.set_volume(0.05)
 
 
     def refresh(self, menu):
@@ -67,11 +67,11 @@ class Game:
         else:
             enemy.Enemy(self)
             if self.game_mode == -1:
-                self.timer = randint(70, 100)
+                self.timer = randint(60, 100)
             elif self.game_mode == 1:
-                self.timer = randint(10, 20)
+                self.timer = randint(5, 20)
             else:
-                self.timer = randint(30, 60)
+                self.timer = randint(20, 50)
 
 
         # updating model position
@@ -83,6 +83,8 @@ class Game:
             target.draw(self)
 
     def check_score(self, menu):
+        if self.score > self.max_score:
+            self.max_score = self.score
         if self.score < 0:
             self.lose_sound.play()
             self.frog_sound.play()
@@ -93,7 +95,7 @@ class Game:
         self.score = 0
         enemy.enemies.clear()
         self.game_running = False
-        menu.start_menu(self)
+        menu.menu(self)
 
 
     def run(self, menu):
