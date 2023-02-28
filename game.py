@@ -3,8 +3,6 @@ import settings
 import sys
 import enemy
 from random import randint
-import menu
-import main
 
 class Game:
     def __init__(self):
@@ -24,11 +22,15 @@ class Game:
         self.animation_timer = 60
         self.is_mouse_pressed = False
         self.score = 0
+        self.game_mode = 0
 
         self.score_bar_text = self.font.render(f"Score: {self.score}", False, "White")
+        self.menu_button = pygame.transform.scale(pygame.image.load('assets/menu/menu_button.png').convert_alpha(),
+                                                  [50, 50])
+        self.menu_button_rect = self.menu_button.get_rect(topleft=(10, 420))
 
         pygame.mixer.init()
-        self.explosion_sound = pygame.mixer.Sound("assets/sounds/vzryv-granaty-rfv.mp3")
+        self.explosion_sound = pygame.mixer.Sound("assets/sounds/explosion.mp3")
         self.explosion_sound.set_volume(0.2)
         self.lose_sound = pygame.mixer.Sound("assets/sounds/fail.mp3")
         self.lose_sound.set_volume(0.2)
@@ -42,11 +44,13 @@ class Game:
         self.mouse = pygame.mouse.get_pos()
         self.score_bar_text = self.font.render(f"Score: {self.score}", True, "White")
 
+
     def draw(self):
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.score_bar, (settings.WIDTH - 188, settings.HEIGHT - 64))
         self.screen.blit(self.score_bar_text, (settings.WIDTH - 170, settings.HEIGHT - 42))
         self.screen.blit(self.cursor, self.mouse)
+        self.screen.blit(self.menu_button, self.menu_button_rect)
 
     @staticmethod
     def check_events():
@@ -55,12 +59,17 @@ class Game:
                 pygame.quit()
                 sys.exit()
 
-    def gameplay(self, ):
+    def gameplay(self):
         if self.timer > 0:
             self.timer -= 1
         else:
             enemy.Enemy(self)
-            self.timer = randint(60, 90)
+            if self.game_mode == -1:
+                self.timer = randint(80, 100)
+            elif self.game_mode == 1:
+                self.timer = randint(20, 30)
+            else:
+                self.timer = randint(50, 70)
 
 
         # updating model position
@@ -76,6 +85,7 @@ class Game:
             self.score = 0
             enemy.enemies.clear()
             self.game_running = False
+            menu.bg_music.stop()
             self.lose_sound.play()
             self.frog_sound.play()
             menu.start_menu(self)
