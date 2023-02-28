@@ -70,9 +70,6 @@ class Game:
         self.score_bar_text = self.game_font.render(f"Score: {self.score}", True, "White")
         # Натискання на кнопку меню
         self.menu_button_pressed(menu)
-        # Оновлення позиції ворогів
-        for target in enemy.enemies:
-            target.update(self)
 
     # Перевірка натискання на кнопку переходу в меню
     def menu_button_pressed(self, menu):
@@ -92,9 +89,6 @@ class Game:
         self.screen.blit(self.cursor, self.mouse)
         # Відображення кнопки меню
         self.screen.blit(self.menu_button, self.menu_button_rect)
-        # Малювання ворогів
-        for target in enemy.enemies:
-            target.draw(self)
 
     # Перевірка натискання клавіш та закривання вікна
     @staticmethod
@@ -118,6 +112,14 @@ class Game:
                 self.timer = randint(5, 20)
             else:
                 self.timer = randint(20, 50)
+
+        # Оновлення позиції ворогів
+        for target in enemy.enemies:
+            target.update(self)
+
+        # Малювання ворогів
+        for target in enemy.enemies:
+            target.draw(self)
 
     # Перевірка кількості балів
     def check_score(self, menu):
