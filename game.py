@@ -4,6 +4,7 @@ import sys
 import enemy
 from random import randint
 
+
 class Game:
     def __init__(self):
         self.game_running = None
@@ -16,7 +17,7 @@ class Game:
         self.score_bar = pygame.image.load('assets/game/score_bar.png')
         self.cursor = pygame.image.load('assets/game/scope.png')
         pygame.font.init()
-        self.font = pygame.font.Font('assets/fonts/LuckiestGuy-Regular.ttf', 35)
+        self.game_font = pygame.font.Font('assets/fonts/LuckiestGuy-Regular.ttf', 35)
 
         self.animation_timer = 60
         self.is_mouse_pressed = False
@@ -24,7 +25,7 @@ class Game:
         self.max_score = 0
         self.game_mode = 0
 
-        self.score_bar_text = self.font.render(f"Score: {self.score}", False, "White")
+        self.score_bar_text = self.game_font.render(f"Score: {self.score}", False, "White")
         self.menu_button = pygame.transform.scale(pygame.image.load('assets/menu/menu_button.png').convert_alpha(),
                                                   [50, 50])
         self.menu_button_rect = self.menu_button.get_rect(topleft=(10, 420))
@@ -37,12 +38,11 @@ class Game:
         self.frog_sound = pygame.mixer.Sound("assets/sounds/frog-sound.mp3")
         self.frog_sound.set_volume(0.05)
 
-
     def refresh(self, menu):
         pygame.display.flip()
         self.clock.tick(settings.FPS)
         self.mouse = pygame.mouse.get_pos()
-        self.score_bar_text = self.font.render(f"Score: {self.score}", True, "White")
+        self.score_bar_text = self.game_font.render(f"Score: {self.score}", True, "White")
         if self.menu_button_rect.collidepoint(self.mouse) and pygame.mouse.get_pressed()[0]:
             menu.click.play()
             self.run_menu(menu)
@@ -73,7 +73,6 @@ class Game:
             else:
                 self.timer = randint(20, 50)
 
-
         # updating model position
         for target in enemy.enemies:
             target.update(self)
@@ -96,7 +95,6 @@ class Game:
         enemy.enemies.clear()
         self.game_running = False
         menu.menu(self)
-
 
     def run(self, menu):
         self.game_running = True
