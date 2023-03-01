@@ -81,8 +81,8 @@ class Menu:
         self.menuscreen.blit(self.settings_button, self.settings_button_rect)
         self.menuscreen.blit(self.exit_button, self.exit_button_rect)
         if game.max_score > 0:
-            self.max_score_text = self.menu_font.render(f"Your best score: {game.max_score}", True, "White")
-            self.menuscreen.blit(self.max_score_text, (230, 180))
+            max_score_text = self.menu_font.render(f"Your best score: {game.max_score}", True, "White")
+            self.menuscreen.blit(max_score_text, (230, 180))
 
     def draw_settings(self):
         self.menuscreen.blit(self.bg, (0, 0))
