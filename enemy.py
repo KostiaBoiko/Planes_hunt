@@ -52,9 +52,9 @@ class Enemy:
     # Перевірка на перетинання літаком кордону
     def check_border(self, game):
         if self.enemy_rect.topleft[0] > WIDTH and self.right_side:
-            self.reduce_points(game)
+            return self.reduce_points(game)
         elif self.enemy_rect.topleft[0] < -250 and not self.right_side:
-            self.reduce_points(game)
+            return self.reduce_points(game)
 
     # Зменшення кількості балів
     def reduce_points(self, game):
@@ -65,7 +65,7 @@ class Enemy:
     # Зміна положення літака
     def change_position(self):
         self.x += self.speed
-        self.enemy_rect.x = self.x
+        return self.x
 
     # Перевірка натисканя на літак
     def check_mouse_collide(self, game):
@@ -79,10 +79,10 @@ class Enemy:
 
     # Оновлення всіх параметрів ворога
     def update(self, game):
-        self.change_position()
+        self.x = self.enemy_rect.x = self.change_position()
         self.check_border(game)
         self.check_mouse_collide(game)
 
     # Малювання ворога
     def draw(self, game):
-        game.screen.blit(self.enemy_texture, self.enemy_rect)
+        return game.screen.blit(self.enemy_texture, self.enemy_rect)
