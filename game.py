@@ -121,14 +121,20 @@ class Game:
         for target in enemy.enemies:
             target.draw(self)
 
+    def loose_action(self, menu):
+        self.lose_sound.play()
+        self.frog_sound.play()
+        self.run_menu(menu)
+
+    def append_max_score(self):
+        self.max_score = self.score
+
     # Перевірка кількості балів
-    def check_score(self, menu):
-        if self.score > self.max_score:
-            self.max_score = self.score
-        if self.score < 0:
-            self.lose_sound.play()
-            self.frog_sound.play()
-            self.run_menu(menu)
+    def check_score(self, menu, score):
+        if score > self.max_score:
+            return self.append_max_score()
+        if score < 0:
+            return self.loose_action(menu)
 
     # Функція запуску меню
     def run_menu(self, menu):
@@ -143,7 +149,7 @@ class Game:
         self.game_running = True
         while self.game_running:
             self.check_events()
-            self.check_score(menu)
+            self.check_score(menu, self.score)
             self.draw()
             self.gameplay()
             self.refresh(menu)
