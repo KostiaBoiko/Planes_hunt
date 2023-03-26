@@ -49,6 +49,8 @@ em = mixer.Sound('assets/sounds/Hatsune Miku - Ievan Polkka (mp3store.cc).mp3')
 nm = mixer.Sound('assets/sounds/undertale_050. Metal Crusher.mp3')
 hm = mixer.Sound('assets/sounds/Daniel_Tidwell_-_At_Dooms_Gate_DOOM_E1M1_(musmore.com).mp3')
 
+
+@pytest.mark.menu
 @pytest.mark.parametrize("expected_music", [em, nm, hm])
 def test_music(menu, expected_music):
     result = menu.change_music(expected_music)
