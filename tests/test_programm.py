@@ -51,5 +51,3 @@ hm = mixer.Sound('assets/sounds/Daniel_Tidwell_-_At_Dooms_Gate_DOOM_E1M1_(musmor
 def test_music(menu, expected_music):
     result = menu.change_music(expected_music)
     assert  result == expected_music
-
-
