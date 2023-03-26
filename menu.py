@@ -1,6 +1,6 @@
-from game import *
 import sys
 import pygame
+import settings
 
 
 class Menu:
