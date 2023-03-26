@@ -2,6 +2,13 @@
 
 Planes Hunt is a game inspired by the classic Duck Hunt game. In this game, you will take on the role of a hunter shooting down planes in the sky.
 
+##Features
+
+Simple and intuitive gameplay
+Easy to understand controls
+Customizable settings
+Fun and engaging experience
+
 ## Installation
 
 To install Planes Hunt, follow these steps:
@@ -26,3 +33,7 @@ Back ground music
 
 
 To modify these settings, open settings in menu and change game mode 
+
+##Credits
+
+This game was created by Did_Petro (Kostia) and goldi4ek (Dmytro)
