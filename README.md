@@ -34,6 +34,6 @@ Back ground music
 
 To modify these settings, open settings in menu and change game mode 
 
-##Credits
+# Credits
 
 This game was created by Did_Petro (Kostia) and goldi4ek (Dmytro)
