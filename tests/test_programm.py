@@ -70,4 +70,3 @@ def test_enemy_type(enemy):
     plane_types = [0, 1, 2]
     result = enemy.plane_type
     assert result in plane_types
-

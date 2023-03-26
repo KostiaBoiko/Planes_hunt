@@ -1,4 +1,6 @@
 from game import *
+import sys
+import pygame
 
 
 class Menu:
