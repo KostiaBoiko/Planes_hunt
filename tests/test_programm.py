@@ -1,5 +1,5 @@
 import pytest
-from pygame import  mixer
+from pygame import mixer
 from enemy import Enemy
 from menu import Menu
 from game import Game
@@ -20,11 +20,9 @@ def menu():
     return Menu()
 
 
-
 def test_game(game):
     result = game.score
     assert result == 0
-
 
 
 @pytest.mark.enemy
@@ -44,6 +42,7 @@ def test_enemy_reduce_points(enemy, a, expected_result):
     result = enemy.reduce_points(a)
     assert result == expected_result
 
+
 mixer.init()
 em = mixer.Sound('assets/sounds/Hatsune Miku - Ievan Polkka (mp3store.cc).mp3')
 nm = mixer.Sound('assets/sounds/undertale_050. Metal Crusher.mp3')
@@ -54,7 +53,7 @@ hm = mixer.Sound('assets/sounds/Daniel_Tidwell_-_At_Dooms_Gate_DOOM_E1M1_(musmor
 @pytest.mark.parametrize("expected_music", [em, nm, hm])
 def test_music(menu, expected_music):
     result = menu.change_music(expected_music)
-    assert  result == expected_music
+    assert result == expected_music
 
 
 @pytest.mark.enemy
@@ -65,9 +64,9 @@ def test_enemy_append_points(enemy, a, expected_result):
     result = enemy.append_points(a)
     assert result == expected_result
 
+
 @pytest.mark.enemy
 def test_enemy_type(enemy):
     plane_types = [0, 1, 2]
     result = enemy.plane_type
     assert result in plane_types
-

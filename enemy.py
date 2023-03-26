@@ -1,6 +1,5 @@
 from random import randint, choice, uniform
-from game import *
-from settings import *
+import settings
 import pygame
 
 # Текстури літака який летить вправо
@@ -39,7 +38,7 @@ class Enemy:
             self.x, self.y = -150, randint(-50, 200)
             self.enemy_texture = pygame.transform.scale_by(plane_textures_right[self.plane_type], self.size_multiplier)
         else:
-            self.x, self.y = WIDTH, randint(-50, 200)
+            self.x, self.y = settings.WIDTH, randint(-50, 200)
             self.speed = -self.speed
             self.enemy_texture = pygame.transform.scale_by(plane_textures_left[self.plane_type], self.size_multiplier)
         # Малювання літака
@@ -51,7 +50,7 @@ class Enemy:
 
     # Перевірка на перетинання літаком кордону
     def check_border(self, game):
-        if (self.enemy_rect.topleft[0] > WIDTH and self.right_side) or \
+        if (self.enemy_rect.topleft[0] > settings.WIDTH and self.right_side) or \
            (self.enemy_rect.topleft[0] < -250 and not self.right_side):
 
             game.score = self.reduce_points(game.score)
