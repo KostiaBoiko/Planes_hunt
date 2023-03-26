@@ -27,6 +27,7 @@ def test_game(game):
 
 
 
+@pytest.mark.enemy
 @pytest.mark.parametrize("a, b, expected_result", [(10, 10, 20),
                                                    (1, 2, 3),
                                                    (3, 4, 7)])
@@ -35,6 +36,7 @@ def test_enemy_change_position(enemy, a, b, expected_result):
     assert result == expected_result
 
 
+@pytest.mark.enemy
 @pytest.mark.parametrize("a, expected_result", [(1, 0),
                                                 (10, 9),
                                                 (11, 10)])
@@ -47,7 +49,25 @@ em = mixer.Sound('assets/sounds/Hatsune Miku - Ievan Polkka (mp3store.cc).mp3')
 nm = mixer.Sound('assets/sounds/undertale_050. Metal Crusher.mp3')
 hm = mixer.Sound('assets/sounds/Daniel_Tidwell_-_At_Dooms_Gate_DOOM_E1M1_(musmore.com).mp3')
 
+
+@pytest.mark.menu
 @pytest.mark.parametrize("expected_music", [em, nm, hm])
 def test_music(menu, expected_music):
     result = menu.change_music(expected_music)
     assert  result == expected_music
+
+
+@pytest.mark.enemy
+@pytest.mark.parametrize("a, expected_result", [(0, 1),
+                                                (9, 10),
+                                                (10, 11)])
+def test_enemy_append_points(enemy, a, expected_result):
+    result = enemy.append_points(a)
+    assert result == expected_result
+
+@pytest.mark.enemy
+def test_enemy_type(enemy):
+    plane_types = [0, 1, 2]
+    result = enemy.plane_type
+    assert result in plane_types
+
