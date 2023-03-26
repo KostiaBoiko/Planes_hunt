@@ -11,8 +11,13 @@ class Menu:
         # -------------------------------------------sounds----------------------------------------
         self.is_muted = None
         self.music_volume = 0.3
-        self.bg_music = pygame.mixer.Sound('assets/sounds/undertale_050. Metal Crusher.mp3')
-        self.bg_music.set_volume(self.music_volume)
+        self.easy_mode_music = pygame.mixer.Sound('assets/sounds/Hatsune Miku - Ievan Polkka (mp3store.cc).mp3')
+        self.normal_mode_music = pygame.mixer.Sound('assets/sounds/undertale_050. Metal Crusher.mp3')
+        self.hard_mode_music = pygame.mixer.Sound(
+                    'assets/sounds/Daniel_Tidwell_-_At_Dooms_Gate_DOOM_E1M1_(musmore.com).mp3')
+        # self.bg_music = self.normal_mode_music
+        # self.bg_music.set_volume(self.music_volume)
+        self.bg_music = self.change_music(self.normal_mode_music)
         self.click = pygame.mixer.Sound('assets/sounds/click.mp3')
         self.click.set_volume(0.1)
         self.bg_music.play()
@@ -62,18 +67,17 @@ class Menu:
         if not self.is_muted:
             self.bg_music.stop()
             if game.game_mode == -1:
-                self.bg_music = pygame.mixer.Sound('assets/sounds/Hatsune Miku - Ievan Polkka (mp3store.cc).mp3')
-                self.bg_music.set_volume(self.music_volume)
-                self.bg_music.play()
-            elif game.game_mode == 1:
-                self.bg_music = pygame.mixer.Sound(
-                    'assets/sounds/Daniel_Tidwell_-_At_Dooms_Gate_DOOM_E1M1_(musmore.com).mp3')
-                self.bg_music.set_volume(self.music_volume)
-                self.bg_music.play()
+                self.bg_music = self.change_music(self.easy_mode_music)
             elif game.game_mode == 0:
-                self.bg_music = pygame.mixer.Sound('assets/sounds/undertale_050. Metal Crusher.mp3')
-                self.bg_music.set_volume(self.music_volume)
-                self.bg_music.play()
+                self.bg_music = self.change_music(self.normal_mode_music)
+            elif game.game_mode == 1:
+                self.bg_music = self.change_music(self.hard_mode_music)
+        self.bg_music.play()
+
+    def change_music(self, new_music):
+        music = new_music
+        music.set_volume(self.music_volume)
+        return music
 
     def draw_menu(self, game):
         self.menuscreen.blit(self.bg, (0, 0))
