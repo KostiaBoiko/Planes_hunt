@@ -1,0 +1,25 @@
+name: Code checker
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+      - name: Install deps
+        run: |
+          pyhon -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run flake8
+        run: flake8 .
+      - name: Run pytest
+        run: pytest .
