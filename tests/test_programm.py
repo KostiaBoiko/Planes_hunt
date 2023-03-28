@@ -1,5 +1,5 @@
 import pytest
-from pygame import mixer
+# from pygame import mixer
 from enemy import Enemy
 from menu import Menu
 from game import Game
